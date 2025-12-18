@@ -7,11 +7,13 @@ Thumbs.db
 
 # Editor files
 .vscode/
+.claude/
 *.swp
 *.swo
 *~
 
-# Optional: Ignore actual gift images if you want to keep them private
-# gifts/*.jpg
-# gifts/*.png
-# gifts/*.gif
+# Keep a placeholder
+!gifts/.gitkeep
+
+*.md
+!README.md
