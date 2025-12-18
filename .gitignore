@@ -1,0 +1,17 @@
+# Ignore the previous attempt
+.ignore/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+
+# Optional: Ignore actual gift images if you want to keep them private
+# gifts/*.jpg
+# gifts/*.png
+# gifts/*.gif
