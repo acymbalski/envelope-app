@@ -1,4 +1,22 @@
+// =============================================================================
+// GIFT CONFIGURATION - Edit this to change your gifts!
+// =============================================================================
+// Each gift can be either:
+//   {type: 'image', content: 'filename.jpg'}  - Shows an image from gifts/ folder
+//   {type: 'text', content: 'Description'}     - Shows text in a festive box
+// =============================================================================
+
+const GIFTS = [
+    {type: 'image', content: 'PXL_20251216_155916023.jpg'},
+    {type: 'image', content: 'PXL_20251216_160036481.jpg'},
+    {type: 'image', content: 'PXL_20251216_160212345.jpg'},
+    {type: 'text', content: 'Masonite shelf covering for your garage steel racks. Supplies & Labor included'},
+    {type: 'image', content: 'PXL_20251216_160326473.jpg'}
+];
+
+// =============================================================================
 // Gift Management System
+// =============================================================================
 class GiftManager {
     constructor() {
         this.gifts = [];
@@ -40,22 +58,10 @@ class GiftManager {
         }
     }
 
-    // Load gifts from the gifts folder
+    // Load gifts from the configuration
     async loadGifts() {
-        try {
-            const response = await fetch('gifts-list.json');
-            if (response.ok) {
-                const data = await response.json();
-                this.gifts = data.gifts.sort(); // Alphabetical order for deterministic positioning
-            } else {
-                // Fallback: assume 5 gifts numbered 1-5
-                this.gifts = ['gift1.jpg', 'gift2.jpg', 'gift3.jpg', 'gift4.jpg', 'gift5.jpg'];
-            }
-        } catch (error) {
-            // Fallback: assume 5 gifts numbered 1-5
-            this.gifts = ['gift1.jpg', 'gift2.jpg', 'gift3.jpg', 'gift4.jpg', 'gift5.jpg'];
-        }
-
+        // Use the GIFTS constant defined at the top of the file
+        this.gifts = GIFTS;
         this.renderEnvelopes();
     }
 
@@ -176,11 +182,23 @@ class GiftManager {
         const modal = document.getElementById('giftModal');
         const display = document.getElementById('giftDisplay');
 
-        const giftFilename = this.gifts[index];
-        display.innerHTML = `
-            <h2>🎁 Gift #${index + 1}</h2>
-            <img src="gifts/${giftFilename}" alt="Gift ${index + 1}">
-        `;
+        const gift = this.gifts[index];
+
+        if (gift.type === 'text') {
+            // Display text-based gift
+            display.innerHTML = `
+                <h2>🎁 Gift #${index + 1}</h2>
+                <div class="gift-text">
+                    <p>${gift.content}</p>
+                </div>
+            `;
+        } else {
+            // Display image-based gift
+            display.innerHTML = `
+                <h2>🎁 Gift #${index + 1}</h2>
+                <img src="gifts/${gift.content}" alt="Gift ${index + 1}">
+            `;
+        }
 
         modal.classList.remove('hidden');
     }
